@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://eikefabricio:fabricioeike@cluster0-eavrz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
+mongoose.connect('url', 
 { useNewUrlParser: true, useUnifiedTopology: true });
 
 const schemas = require('../schema/DatabaseSchema');
