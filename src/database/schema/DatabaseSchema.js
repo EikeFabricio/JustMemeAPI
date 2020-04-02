@@ -12,7 +12,8 @@ const profileSchema = new Schema({
     photo: { type: String, default: 
 'https://www.pngitem.com/pimgs/m/421-4212341_default-avatar-svg-hd-png-download.png' },
     email: { type: String },
-    password: { type: String }
+    password: { type: String },
+    role: { type: Number, default: 0 }
 });
  
 const postSchema = new Schema({

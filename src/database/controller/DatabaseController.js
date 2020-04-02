@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://eikefabricio:fabricioeike@cluster0-eavrz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
-{ useNewUrlParser: true, useUnifiedTopology: true });
-
 const schemas = require('../schema/DatabaseSchema');
+const loginJson = require('./login.json')
+
+mongoose.connect(loginJson.url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const connection = mongoose.connection;
 

@@ -6,11 +6,9 @@ const Profile = mongoose.model('Profile', schema.profileSchema);
 const Post = mongoose.model('Post', schema.postSchema);
 
 module.exports = {
-    async create(author, announce) {
-        let profile = new Profile(author);
+    async create(announce) {
         let post = new Post(announce);
 
-        await profile.save();
         await post.save();
     },
     async indexOf(author) {

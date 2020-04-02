@@ -1,33 +1,33 @@
 const mongoose = require('mongoose');
-
 const schema = require('../../schema/DatabaseSchema');
+const Hash = require('crypto').createHash('sha256');
 
 const Profile = mongoose.model('Profile', schema.profileSchema);
-
-function err(error, obj) {
-    if (err) return console.log(`error on bd attempt ${obj} > ${error}`)
-}
 
 module.exports = {
     async create(prof) {
         let profile = new Profile(prof);
 
-        await profile.save();
+        Hash.update(profile.password);
+        
+        const encryptedPassword = Hash.digest('hex');
+
+        profile.password = encryptedPassword;
+
+        await profile.save(); 
+
+        return profile;
     },
     async delete(prof) {
-        let profile = new Profile(prof);
+        const { email } = prof;
 
-        await Profile.deleteOne(profile);
+        await Profile.deleteOne({ email });
     },
-    async changePhoto(prof, photoUrl) {
-        let profile = await Profile.updateOne({ 
-            email: prof.email 
-        }, { 
-            $set: { 
-                photo: photoUrl 
-            } 
-        });
+    async changePhoto(profile, photoUrl) {
+        const { email } = profile;
+        const prof = await Profile.findOne({ email });
+        prof.photo = photoUrl;
 
-        await profile.save()
+        await prof.save();
     }
 };
