@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const schemas = require('../schema/DatabaseSchema');
-const loginJson = require('./login.json')
+const login = require('./files/login.json')
 
-mongoose.connect(loginJson.url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(login.url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const connection = mongoose.connection;
 
