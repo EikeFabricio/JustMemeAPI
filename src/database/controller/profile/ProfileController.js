@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const schema = require('../../schema/DatabaseSchema');
 const crypto = require('crypto');
+const Profile = mongoose.model('Profile', schema.profileSchema);
 
 let Hash;
-
-const Profile = mongoose.model('Profile', schema.profileSchema);
 
 module.exports = {
     async create(request, response) {
@@ -27,7 +26,7 @@ module.exports = {
 
         await Profile.deleteOne({ email });
 
-        return response.status(202).json({ success: `${email} profile deleted.`})
+        return response.status(202).json({ success: `${email} profile deleted.`} )
     },
     async changePhoto(request, response) {
         const { email, photoUrl } = request.body;
@@ -39,8 +38,8 @@ module.exports = {
         return response.send(prof.toJSON());
     },
     async index(request, response) {
-        await Profile.find({}, function(err, users) {
+        await Profile.find({}, (err, users) => {
            return response.json(users); 
-         });
+        });
     }
 };

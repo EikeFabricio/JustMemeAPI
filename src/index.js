@@ -14,9 +14,3 @@ app.listen(3333, () => {
 
 database.create();
 
-module.exports = {
-    PostController,
-    ProfileController
-};
-
-

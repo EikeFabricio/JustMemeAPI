@@ -10,7 +10,11 @@ routes.get("/", (request, response) => { return response.status(200).json({}); }
 routes.post("/profile", ProfileController.create);
 routes.delete("/profile", ProfileController.delete);
 routes.get("/profile", ProfileController.index);
-routes.put("/profile", ProfileController.changePhoto)
+routes.put("/profile", ProfileController.changePhoto);
+
+routes.post("/post", PostController.create);
+routes.get("/post", PostController.index);
+routes.put("/post", PostController.changeMeta);
 
 
 
