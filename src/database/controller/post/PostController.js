@@ -8,11 +8,12 @@ const Post = mongoose.model('Post', schema.postSchema);
 module.exports = {
     async create(request, response) {
         const post = new Post(request.body);
+        post.postId = require('crypto').randomBytes(3).toString('HEX');
 
         const { authorEmail } = request.body;
         
         const profile = await Profile.findOne({ email: authorEmail });
-        profile.memes.push(post.postId);
+        profile.memes.push({ postId: post.postId });
 
         await profile.save();
         await post.save();
@@ -21,16 +22,19 @@ module.exports = {
     },
     async index(request, response) {
         const body = request.body;
+        let arr;
 
         if (body.authorEmail !== undefined) {
             await Post.find({ authorEmail: body.authorEmail }, (err, posts) => {
-                return response.json(posts);
+                arr = posts;
             });
         } else {
             await Post.find({}, (err, posts) => {
-                return response.json(posts);
+                arr = posts;
             });
         }
+
+        return response.status(200).json(arr);
     },
     async changeMeta(request, response) {
         const post = await Post.findOne({ postId: request.body.postId });
@@ -42,7 +46,23 @@ module.exports = {
         await post.save();
 
         return response.status(200).send(post.toJSON());
+    },
+    async delete(request, response) {
+        const { postId } = request.body;
+        
+        await Post.delete({ postId });
+
+        return response.status(200).json({ success: `${postId} deleted with success` })
+    },
+    async comment(request, response) {
+        const { authorEmail, description, postId } = request.body;
+
+        const post = await Post.findOne({ postId });
+        post.comments.push({ authorEmail, description });
+
+        await post.save();
+
+        return response.status(200).send(post.toJSON());
     }
-    
 };
 

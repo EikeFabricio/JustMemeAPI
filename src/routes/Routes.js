@@ -15,7 +15,8 @@ routes.put("/profile", ProfileController.changePhoto);
 routes.post("/post", PostController.create);
 routes.get("/post", PostController.index);
 routes.put("/post", PostController.changeMeta);
+routes.delete("/post", PostController.delete);
 
-
+routes.post("/comments", PostController.comment);
 
 module.exports = routes;

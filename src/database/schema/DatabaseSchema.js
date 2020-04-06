@@ -3,8 +3,6 @@ const Schema = mongoose.Schema;
 
 const crypto = require('crypto');
 
-function randomString() { return crypto.randomBytes(6).toString('HEX'); }  
-
 const profileSchema = new Schema({
     name: { type: String },
     creationDate: { type: Date, default: Date.now },
@@ -18,7 +16,7 @@ const profileSchema = new Schema({
  
 const postSchema = new Schema({
     authorEmail: { type: String },
-    postId: { type: String, default: randomString() },
+    postId: { type: String, default: require('crypto').randomBytes(3).toString('HEX') },
     comments: [{
         authorEmail: { type: String },
         description: { type: String }
