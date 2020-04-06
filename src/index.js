@@ -1,7 +1,5 @@
 const express = require('express');
 const database = require('./database/Database');
-const PostController = require('./database/controller/post/PostController');
-const ProfileController = require('./database/controller/profile/ProfileController');
 const app = express();
 const routes = require('./routes/Routes');
 
