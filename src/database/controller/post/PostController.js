@@ -15,8 +15,7 @@ module.exports = {
         const profile = await Profile.findOne({ email: authorEmail });
         profile.memes.push({ postId: post.postId });
 
-        await profile.save();
-        await post.save();
+        await post.save(), profile.save();
 
         return response.send(post.toJSON());
     },
