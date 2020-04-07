@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const crypto = require('crypto');
-
 const profileSchema = new Schema({
     name: { type: String },
     creationDate: { type: Date, default: Date.now },
@@ -16,7 +14,7 @@ const profileSchema = new Schema({
  
 const postSchema = new Schema({
     authorEmail: { type: String },
-    postId: { type: String, default: require('crypto').randomBytes(3).toString('HEX') },
+    postId: { type: String },
     comments: [{
         authorEmail: { type: String },
         description: { type: String }
