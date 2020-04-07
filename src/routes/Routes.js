@@ -5,7 +5,7 @@ const PostController = require('../database/controller/post/PostController');
 
 const routes = express.Router();
 
-routes.get("/", (request, response) => { return response.status(200).json({}); });
+routes.get("/", (request, response) => { return response.status(204).send() });
 
 routes.post("/profile", ProfileController.create);
 routes.delete("/profile", ProfileController.delete);
